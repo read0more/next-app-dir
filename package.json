@@ -13,15 +13,21 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.3.2",
     "@mui/material": "^5.14.19",
     "@openapitools/openapi-generator-cli": "^2.7.0",
+    "@tanstack/react-query": "^5.13.4",
     "@vanilla-extract/css": "^1.14.0",
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mysql2": "^3.6.5",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "sequelize": "^6.35.1"
+    "react-hook-form": "^7.49.0",
+    "sequelize": "^6.35.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.12.1",
