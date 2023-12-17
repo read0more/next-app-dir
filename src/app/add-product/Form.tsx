@@ -35,7 +35,7 @@ export default function Form() {
 
   const mutation = useMutation({
     mutationFn: ({ name, description, price, imageUrl }: FormValues) => {
-      return axios.post('http://localhost:8080/product', {
+      return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
         name,
         description,
         price,
