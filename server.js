@@ -61,6 +61,22 @@ async function init() {
     }, 1000);
   });
 
+  app.get('/product/:id', (req, res) => {
+    delayed(() => {
+      sequelize
+        .query(`SELECT * FROM product WHERE id = ${req.params.id}`, {
+          type: sequelize.QueryTypes.SELECT,
+        })
+        .then((result) => {
+          res.status(200).send(result[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(404).send('Product not found');
+        });
+    }, 1000);
+  });
+
   app.listen(8080, () => {
     console.log('Example app listening on port 8080!');
   });

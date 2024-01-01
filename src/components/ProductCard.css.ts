@@ -8,6 +8,17 @@ export const card = style({
   minHeight: '500px',
   display: 'flex',
   flexDirection: 'column',
+
+  // a tag css reset
+  textDecoration: 'none',
+  color: 'inherit',
+  transition: 'transform .3s',
+
+  selectors: {
+    '&:hover': {
+      transform: 'scale(1.05)',
+    },
+  },
 });
 
 globalStyle(`${card} > img`, {

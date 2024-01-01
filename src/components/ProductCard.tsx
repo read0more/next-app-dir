@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import type { Product } from './types/Product';
 import { Chip, Grid } from '@mui/material';
 import { card } from './ProductCard.css';
@@ -14,7 +15,7 @@ export default function ProductCard({
 }) {
   return (
     <Grid item xs={4} sm={4}>
-      <div className={card}>
+      <Link className={card} href={`/products/${product.id}`}>
         <Image
           src={product.image_url}
           alt={product.name}
@@ -36,7 +37,7 @@ export default function ProductCard({
           <p>{product.description}</p>
           <span>{formatPrice(product.price)}</span>
         </div>
-      </div>
+      </Link>
     </Grid>
   );
 }
