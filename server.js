@@ -77,6 +77,43 @@ async function init() {
     }, 1000);
   });
 
+  app.post('/cart', (req, res) => {
+    // TODO: cart add, subtract, remove 추가 필요함;
+    delayed(async () => {
+      try {
+        const { quantity, productId } = req.body;
+        let cartId = req.body.cartId ?? 0;
+
+        const cartResult = await sequelize.query(
+          `SELECT * FROM cart WHERE id = ${cartId}`,
+          {
+            type: sequelize.QueryTypes.SELECT,
+          },
+        );
+
+        if (!cartResult.length) {
+          const insertCartResult = await sequelize.query(
+            `INSERT INTO cart (id) VALUES (DEFAULT)`,
+            {
+              type: sequelize.QueryTypes.INSERT,
+            },
+          );
+          cartId = `${insertCartResult[0]}`;
+        }
+
+        await sequelize.query(
+          `INSERT INTO cartItem (cartId, quantity, productId) VALUES (${cartId}, ${quantity}, ${productId})`,
+          { type: sequelize.QueryTypes.INSERT },
+        );
+
+        res.status(201).send({ cartId });
+      } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+      }
+    }, 300);
+  });
+
   app.listen(8080, () => {
     console.log('Example app listening on port 8080!');
   });

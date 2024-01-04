@@ -10,9 +10,3 @@ export const MainImage = style({
   objectFit: 'cover',
   width: '100%',
 });
-
-export const productInfo = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '.6rem',
-});
