@@ -1,4 +1,3 @@
-import React from 'react';
 import { productDetail, MainImage } from './ProductDetail.css';
 import { Chip, Grid } from '@mui/material';
 import { Product } from './types/Product';

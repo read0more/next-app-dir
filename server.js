@@ -77,12 +77,31 @@ async function init() {
     }, 1000);
   });
 
-  app.post('/cart', (req, res) => {
-    // TODO: cart add, subtract, remove 추가 필요함;
+  // TODO: 💩 cart 관련 라우팅이 좀...
+  app.get('/cart/:id', (req, res) => {
+    delayed(() => {
+      sequelize
+        .query(
+          `SELECT * FROM cartItem WHERE cartId = ${req.params.id} ORDER BY id DESC`,
+          {
+            type: sequelize.QueryTypes.SELECT,
+          },
+        )
+        .then((result) => {
+          res.status(200).send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(404).send('Cart not found');
+        });
+    }, 300);
+  });
+
+  app.post('/cart/:id', (req, res) => {
     delayed(async () => {
       try {
         const { quantity, productId } = req.body;
-        let cartId = req.body.cartId ?? 0;
+        const cartId = req.params?.id ?? 0;
 
         const cartResult = await sequelize.query(
           `SELECT * FROM cart WHERE id = ${cartId}`,
@@ -107,6 +126,44 @@ async function init() {
         );
 
         res.status(201).send({ cartId });
+      } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+      }
+    }, 300);
+  });
+
+  app.patch('/cart/:id', (req, res) => {
+    delayed(async () => {
+      try {
+        const { quantity, productId } = req.body;
+        const cartId = req.params?.id ?? 0;
+
+        await sequelize.query(
+          `UPDATE cartItem SET quantity = ${quantity} WHERE cartId = ${cartId} AND productId = ${productId}`,
+          { type: sequelize.QueryTypes.UPDATE },
+        );
+
+        res.status(200).send('updated');
+      } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+      }
+    }, 300);
+  });
+
+  app.delete('/cart/:id', (req, res) => {
+    delayed(async () => {
+      try {
+        const { id } = req.params;
+        const { itemIds } = req.query;
+
+        await sequelize.query(
+          `DELETE FROM cartItem WHERE cartId = ${id} AND id IN (${itemIds})`,
+          { type: sequelize.QueryTypes.DELETE },
+        );
+
+        res.status(200).send('deleted');
       } catch (err) {
         console.log(err);
         res.status(500).send('Internal Server Error');

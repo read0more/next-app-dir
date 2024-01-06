@@ -1,35 +1,16 @@
 'use client';
 
+import useCart from '@/hooks/useCart';
 import { Button } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import React, { useState } from 'react';
-
-type AddToCartParams = {
-  cartId?: string;
-  quantity: number;
-  productId: string;
-};
+import React from 'react';
 
 export default function AddToCartButton({ productId }: { productId: string }) {
-  const [cartId, setCartId] = useState(localStorage.getItem('cartId'));
+  const { cartItems, addCart, updateCart } = useCart();
+  // 현재 카트에 담긴 상품들 중에서 현재 상품에 대한 수량을 가져온다.
+  const currentQuantity =
+    cartItems?.find((item) => item.productId === productId)?.quantity ?? 0;
 
-  const mutation = useMutation({
-    mutationFn: ({ quantity }: AddToCartParams) => {
-      return axios.post<{
-        cartId: number;
-      }>(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
-        cartId,
-        quantity,
-        productId,
-      });
-    },
-    onSuccess: ({ data }) => {
-      const responsedCartId = data.cartId.toString();
-      localStorage.setItem('cartId', responsedCartId);
-      setCartId(responsedCartId);
-    },
-  });
+  const handleOnClick = currentQuantity ? updateCart : addCart;
 
   return (
     <Button
@@ -38,7 +19,9 @@ export default function AddToCartButton({ productId }: { productId: string }) {
       sx={{
         mt: '.2rem',
       }}
-      onClick={() => mutation.mutate({ quantity: 1, productId })}
+      onClick={() =>
+        handleOnClick({ productId, quantity: currentQuantity + 1 })
+      }
     >
       Add to cart
     </Button>

@@ -9,4 +9,5 @@ export const productDetail = style({
 export const MainImage = style({
   objectFit: 'cover',
   width: '100%',
+  borderRadius: '10px',
 });
