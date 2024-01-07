@@ -70,5 +70,7 @@ export default function useCart() {
     cartItems,
     addCart: addMutation.mutate,
     updateCart: updateMutation.mutate,
+    isAddCartPending: addMutation.isPending,
+    isUpdateCartPending: updateMutation.isPending,
   };
 }
