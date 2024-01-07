@@ -1,4 +1,4 @@
-import { productDetail, MainImage } from './ProductDetail.css';
+import { MainImage } from './ProductDetail.css';
 import { Chip, Grid } from '@mui/material';
 import { Product } from './types/Product';
 import Image from 'next/image';
@@ -7,7 +7,7 @@ import AddToCartButton from './AddToCartButton';
 
 export default function ProductDetail({ product }: { product: Product }) {
   return (
-    <Grid container spacing={3} className={productDetail}>
+    <Grid container spacing={3}>
       <Grid item xs={12} sm={6}>
         <Image
           src={product.image_url}

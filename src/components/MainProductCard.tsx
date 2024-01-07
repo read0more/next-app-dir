@@ -3,6 +3,7 @@ import type { Product } from './types/Product';
 import { Button, Grid } from '@mui/material';
 import { mainCard } from './ProductCard.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function MainProductCard({ product }: { product: Product }) {
   return (
@@ -17,9 +18,11 @@ export default function MainProductCard({ product }: { product: Product }) {
         <div>
           <h2>{product.name}</h2>
           <span>{product.description}</span>
-          <Button variant="contained" color="primary">
-            Check it out
-          </Button>
+          <Link href={`/products/${product.id}`} style={{ display: 'block' }}>
+            <Button variant="contained" color="primary">
+              Check it out
+            </Button>
+          </Link>
         </div>
       </div>
     </Grid>

@@ -74,6 +74,6 @@ globalStyle(`${mainCard} > div > span`, {
   color: grey[500],
 });
 
-globalStyle(`${mainCard} > div > button`, {
+globalStyle(`${mainCard} > div > a`, {
   marginTop: '1rem',
 });
