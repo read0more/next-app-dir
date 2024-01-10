@@ -4,6 +4,7 @@ import './globals.css';
 import ReactQueryProviders from './ReactQueryProvider';
 import { Container } from '@mui/material';
 import { main } from './page.css';
+import Navbar from '@/components/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Ecommerce',
   description: 'Ecommerce website',
   icons: {
-    icon: '/favicon.svg',
+    icon: '/log.svg',
   },
 };
 
@@ -23,11 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className={main}>
-          <ReactQueryProviders>
-            <Container>{children}</Container>
-          </ReactQueryProviders>
-        </main>
+        <ReactQueryProviders>
+          <Container>
+            <Navbar />
+            <main className={main}>{children}</main>
+          </Container>
+        </ReactQueryProviders>
       </body>
     </html>
   );

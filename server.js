@@ -82,7 +82,9 @@ async function init() {
     delayed(() => {
       sequelize
         .query(
-          `SELECT * FROM cartItem WHERE cartId = ${req.params.id} ORDER BY id DESC`,
+          `SELECT ci.*, p.price
+           FROM cartItem ci JOIN product p ON ci.productId = p.id 
+           WHERE ci.cartId = ${req.params.id}`,
           {
             type: sequelize.QueryTypes.SELECT,
           },

@@ -7,6 +7,7 @@ type CartItem = {
   cartId: string;
   quantity: number;
   productId: string;
+  price: number;
 };
 
 type AddToCartParams = {
@@ -68,6 +69,10 @@ export default function useCart() {
 
   return {
     cartItems,
+    itemsCount: cartItems?.reduce((acc, item) => acc + item.quantity, 0) ?? 0,
+    subtotal:
+      cartItems?.reduce((acc, item) => acc + item.quantity * item.price, 0) ??
+      0,
     addCart: addMutation.mutate,
     updateCart: updateMutation.mutate,
     isAddCartPending: addMutation.isPending,
