@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type CartItem = {
   id: string;
@@ -18,7 +18,11 @@ type AddToCartParams = {
 
 export default function useCart() {
   const queryClient = useQueryClient();
-  const [cartId, setCartId] = useState(localStorage.getItem('cartId'));
+  const [cartId, setCartId] = useState('');
+
+  useEffect(() => {
+    setCartId(localStorage.getItem('cartId') ?? '');
+  }, []);
 
   const { data: cartItems } = useQuery({
     queryKey: ['cart', cartId],
