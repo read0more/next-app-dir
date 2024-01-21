@@ -5,6 +5,7 @@ import ReactQueryProviders from './ReactQueryProvider';
 import { Container } from '@mui/material';
 import { main } from './page.css';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Container>
             <Navbar />
             <main className={main}>{children}</main>
+            <Footer />
           </Container>
         </ReactQueryProviders>
       </body>
