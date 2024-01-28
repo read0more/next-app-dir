@@ -2,12 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-type CartItem = {
+export type CartItem = {
   id: string;
   cartId: string;
   quantity: number;
   productId: string;
   price: number;
+  image_url: string;
+  name: string;
 };
 
 type AddToCartParams = {

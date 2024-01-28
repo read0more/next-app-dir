@@ -3,6 +3,7 @@ import { Button, Stack, Typography } from '@mui/material';
 import useCart from '@/hooks/useCart';
 import { grey } from '@mui/material/colors';
 import { formatPrice } from '@/lib/format';
+import Link from 'next/link';
 
 export default function CartTooltip() {
   const { itemsCount, subtotal } = useCart();
@@ -14,7 +15,15 @@ export default function CartTooltip() {
         Subtotal: {formatPrice(subtotal)}
       </Typography>
       <Button variant="contained" color="primary" fullWidth>
-        VIEW CART
+        <Link
+          href="/cart"
+          style={{
+            color: 'white',
+            textDecoration: 'none',
+          }}
+        >
+          VIEW CART
+        </Link>
       </Button>
     </Stack>
   );
